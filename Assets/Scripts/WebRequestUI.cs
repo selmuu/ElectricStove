@@ -21,6 +21,19 @@ public class WebRequestUI : MonoBehaviour
         StartCoroutine(RestCommunication.SendGetRequest(serverUrl,message, UpdateReturnValueText));
     }
 
+     public void SendPostMessage()
+    {
+        string serverUrl = serverURL.text;
+        string message = this.message.text;
+
+        serverUrl = serverUrl.Remove(serverUrl.Length-1);
+        message = message.Remove(message.Length-1);
+
+        string json = "{\"uid\": \"1234567890\", \"message\": \""+message+"\"}";
+
+        StartCoroutine(RestCommunication.SendPostRequest(serverUrl, json, UpdateReturnValueText));
+    }
+
     public void UpdateReturnValueText(string text)
     {
         returnValue.text = text;

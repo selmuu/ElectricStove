@@ -23,4 +23,21 @@ public class RestCommunication : MonoBehaviour
         }
     }
 
+    
+    public static IEnumerator SendPostRequest(string url, string json,
+    System.Action<string> action)
+    {
+        UnityWebRequest www = UnityWebRequest.Post(url, json, "application/json");
+
+        yield return www.SendWebRequest();
+
+        if(www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError(www.error);
+        }
+        else
+        {
+            action(www.downloadHandler.text);
+        }
+    }
 }
